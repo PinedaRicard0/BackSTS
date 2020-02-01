@@ -10,7 +10,7 @@ namespace sts_models.POCOS
         public string name { get; set; }
         public string category { get; set; }
 
-        public int pool { get; set; }
+        public string pool { get; set; }
 
 
     }

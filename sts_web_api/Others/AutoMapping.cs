@@ -12,7 +12,7 @@ namespace sts_web_api.Others
                 ForMember(dest => dest.id, opt => opt.MapFrom(dest => dest.TeamId)).
                 ForMember(dest => dest.name, opt => opt.MapFrom(dest => dest.Name)).
                 ForMember(dest => dest.category, opt => opt.MapFrom(dest => dest.Pool.CategoryId.ToString())).
-                ForMember(dest => dest.pool, opt => opt.MapFrom(dest => dest.PoolId));
+                ForMember(dest => dest.pool, opt => opt.MapFrom(dest => dest.Pool.Name));
         }
     }
 }
