@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\sts_daos\sts_daos.csproj" />
+    <ProjectReference Include="..\sts_i_services\sts_i_services.csproj" />
+    <ProjectReference Include="..\sts_models\sts_models.csproj" />
+  </ItemGroup>
+
+</Project>
