@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using sts_i_daos;
 using sts_models.DTO;
+using sts_models.POCOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,20 @@ namespace sts_daos
             catch (Exception e) {
                 return "Error";
             }
-            
+        }
+
+        public async Task<string> UpdateFieldById(FieldP field)
+        {
+            Field toUpdateField = await _context.Fields.SingleOrDefaultAsync(f => f.Id == field.Id);
+            if (toUpdateField != null)
+            {
+                toUpdateField.Name = field.Name;
+                toUpdateField.Address = field.Address;
+                toUpdateField.Description = field.Description;
+                await _context.SaveChangesAsync();
+                return "updated";
+            }
+            return "No field";
         }
     }
 }

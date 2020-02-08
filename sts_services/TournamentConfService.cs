@@ -43,6 +43,13 @@ namespace sts_services
             return await _DaoField.SaveField(f);
         }
 
+        public async Task<string> UpdateField(FieldP field)
+        {
+            string r = await _DaoField.UpdateFieldById(field);
+            return r;
+
+        }
+
         public async Task<List<TeamP>> GetCategoryTeams(int categoryId)
         {
             List<Pool> pools = await _DaoPool.GetPoolsByCategory(categoryId);

@@ -33,5 +33,11 @@ namespace sts_web_api.Controllers
             return Json(r);
         }
 
+        [HttpPut]
+        public async Task<ActionResult> UpdateField(FieldP field) {
+            var r = await _TournamentConfService.UpdateField(field);
+            return Json(r);
+        }
+
     }
 }

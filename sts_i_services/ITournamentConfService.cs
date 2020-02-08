@@ -11,5 +11,7 @@ namespace sts_i_services
         Task<List<TeamP>> GetCategoryTeams(int categoryId);
         Task<List<Field>> AllFields();
         Task<string> CreateField(FieldP field);
+
+        Task<string> UpdateField(FieldP field);
     }
 }
