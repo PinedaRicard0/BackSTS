@@ -6,18 +6,20 @@ using System.Text;
 
 namespace sts_models.DTO
 {
-    public class Team
+    public class Field
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TeamId { get; set; }
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }
-        [MaxLength(30)]
-        public string City { get; set; }
-        public int PoolId { get; set; }
-        public virtual Pool Pool { get; set; }
 
+        [MaxLength(150)]
+        public string Description { get; set; }
+
+        [MaxLength(50)]
+        public string Address { get; set; }
     }
 }

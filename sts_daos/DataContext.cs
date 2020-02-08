@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using sts_models;
+using sts_models.DTO;
 
 namespace sts_daos
 {
@@ -9,7 +9,8 @@ namespace sts_daos
         public DbSet<Category> Categories { get; set; }
         public DbSet<Pool> Pools { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Field> Fields { get; set; }
 
-
+        public DbSet<Player> Players { get; set; }
     }
 }

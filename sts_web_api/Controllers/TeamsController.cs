@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using sts_i_services;
 
@@ -8,25 +9,25 @@ namespace sts_web_api.Controllers
     [ApiController]
     public class TeamsController : ControllerBase
     {
-        private readonly ITournamentConfService _CategoryService;
-        public TeamsController(ITournamentConfService categoryService)
+        private readonly ITournamentConfService _TournamentConfService;
+        public TeamsController(ITournamentConfService TournamentConfService)
         {
-            _CategoryService = categoryService;
+            _TournamentConfService = TournamentConfService;
         }
 
         [HttpGet]
         [Route("categories")]
-        public IActionResult GetCategories()
+        public async Task<IActionResult> GetCategories()
         {
-            var categories = _CategoryService.AllCategories();
+            var categories = await _TournamentConfService.AllCategories();
             return Ok(categories);
         }
 
         [HttpGet]
         [Route("categorieteams/{id}")]
-        public IActionResult GetTeamsCategories(int id)
+        public async Task<IActionResult> GetTeamsCategories(int id)
         {
-            var teams = _CategoryService.GetCategoryTeams(id);
+            var teams = await _TournamentConfService.GetCategoryTeams(id);
             return Ok(teams);
         }
     }

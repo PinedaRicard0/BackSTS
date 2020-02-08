@@ -1,14 +1,15 @@
-﻿using sts_models;
+﻿using sts_models.DTO;
 using sts_models.POCOS;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace sts_i_services
 {
     public interface ITournamentConfService
     {
-        List<Category> AllCategories();
-        List<TeamP> GetCategoryTeams(int categoryId);
+        Task<List<Category>> AllCategories();
+        Task<List<TeamP>> GetCategoryTeams(int categoryId);
+        Task<List<Field>> AllFields();
+        Task<string> CreateField(FieldP field);
     }
 }

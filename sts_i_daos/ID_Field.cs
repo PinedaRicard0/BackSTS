@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace sts_i_daos
 {
-    public interface ID_Pool
+    public interface ID_Field
     {
-        Task<List<Pool>> GetPoolsByCategory(int categoryId);
+        Task<List<Field>> GetAllFields();
+
+        Task<string> SaveField(Field field);
     }
 }

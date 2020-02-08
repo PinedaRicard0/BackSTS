@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using sts_i_daos;
-using sts_models;
+using sts_models.DTO;
 
 namespace sts_daos
 {
@@ -15,9 +16,9 @@ namespace sts_daos
             _context = context;
         }
 
-        public List<Category> GetAllCategories()
+        public async Task<List<Category>> GetAllCategories()
         {
-            var categories = _context.Categories.ToList();
+            var categories = await _context.Categories.ToListAsync();
             return categories;
         }
     }

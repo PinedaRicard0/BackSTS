@@ -32,6 +32,7 @@ namespace sts_web_api
             services.AddScoped<ITournamentConfService, TournamentConfService>();
             services.AddScoped<ID_Pool, D_Pool>();
             services.AddScoped<ID_Team, D_Team>();
+            services.AddScoped<ID_Field, D_Field>();
 
             //Managing mappers
             services.AddAutoMapper(typeof(Startup));

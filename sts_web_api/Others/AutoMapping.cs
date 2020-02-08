@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using sts_models;
+using sts_models.DTO;
 using sts_models.POCOS;
 
 namespace sts_web_api.Others
@@ -13,6 +13,8 @@ namespace sts_web_api.Others
                 ForMember(dest => dest.name, opt => opt.MapFrom(dest => dest.Name)).
                 ForMember(dest => dest.category, opt => opt.MapFrom(dest => dest.Pool.CategoryId.ToString())).
                 ForMember(dest => dest.pool, opt => opt.MapFrom(dest => dest.Pool.Name));
+
+            CreateMap<FieldP, Field>();
         }
     }
 }

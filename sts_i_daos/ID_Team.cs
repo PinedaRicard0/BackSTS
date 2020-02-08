@@ -1,7 +1,5 @@
-﻿using sts_models;
-using System;
+﻿using sts_models.DTO;
 using System.Collections.Generic;
-using System.Text;
 
 namespace sts_i_daos
 {
