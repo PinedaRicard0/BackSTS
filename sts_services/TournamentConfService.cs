@@ -55,7 +55,7 @@ namespace sts_services
             List<Pool> pools = await _DaoPool.GetPoolsByCategory(categoryId);
             if (pools.Count > 0)
             {
-                List<Team> teamsList = _DaoTeam.GetPoolsTeams(pools);
+                List<Team> teamsList = await _DaoTeam.GetPoolsTeams(pools);
                 if (teamsList.Count > 0)
                 {
                     var r = _mapper.Map<List<Team>, List<TeamP>>(teamsList);
@@ -63,6 +63,21 @@ namespace sts_services
                 }
             }
             return null;
+        }
+
+        public async Task<List<PoolP>> GetCategoryPools(int id) {
+            List<Pool> pools = await _DaoPool.GetPoolsByCategory(id);
+            var r = _mapper.Map<List<Pool>, List<PoolP>>(pools);
+            if (r.Count > 0) {
+                return r;
+            }
+            return null;
+        }
+
+        public async Task<string> CreateTeams(TeamP team)
+        {
+            var t = _mapper.Map<TeamP, Team>(team);
+            return await _DaoTeam.SaveTeam(t);
         }
     }
 }

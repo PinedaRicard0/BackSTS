@@ -14,7 +14,12 @@ namespace sts_web_api.Others
                 ForMember(dest => dest.category, opt => opt.MapFrom(dest => dest.Pool.CategoryId.ToString())).
                 ForMember(dest => dest.pool, opt => opt.MapFrom(dest => dest.Pool.Name));
 
+            CreateMap<TeamP, Team>().
+                ForMember(dest => dest.Name, opt => opt.MapFrom(dest => dest.name)).
+                ForMember(dest => dest.PoolId, opt => opt.MapFrom(dest => dest.pool));
+
             CreateMap<FieldP, Field>();
+            CreateMap<Pool, PoolP>();
         }
     }
 }

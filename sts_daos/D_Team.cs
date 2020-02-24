@@ -1,7 +1,9 @@
-﻿using sts_i_daos;
+﻿using Microsoft.EntityFrameworkCore;
+using sts_i_daos;
 using sts_models.DTO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace sts_daos
 {
@@ -13,14 +15,20 @@ namespace sts_daos
         {
             _context = context;
         }
-        public List<Team> GetPoolsTeams(List<Pool> pools)
+        public async Task<List<Team>> GetPoolsTeams(List<Pool> pools)
         {
             List<Team> responseList = new List<Team>();
             foreach (var item in pools)
             {
-                responseList.AddRange( _context.Teams.Where(t => t.PoolId == item.Id).ToList());
+                 responseList.AddRange(await _context.Teams.Where(t => t.PoolId == item.Id).ToListAsync());
             }
             return responseList;
+        }
+
+        public async Task<string> SaveTeam(Team team) {
+            await _context.Teams.AddAsync(team);
+            await _context.SaveChangesAsync();
+            return "created";
         }
     }
 }
