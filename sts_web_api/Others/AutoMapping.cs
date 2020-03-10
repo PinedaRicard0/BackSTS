@@ -24,6 +24,8 @@ namespace sts_web_api.Others
 
             CreateMap<FieldP, Field>();
             CreateMap<Pool, PoolP>();
+            CreateMap<PlayerP, Player>();
+            CreateMap<Player, PlayerP>();
         }
     }
 }

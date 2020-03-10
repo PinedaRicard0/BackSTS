@@ -33,6 +33,7 @@ namespace sts_web_api
             services.AddScoped<ID_Pool, D_Pool>();
             services.AddScoped<ID_Team, D_Team>();
             services.AddScoped<ID_Field, D_Field>();
+            services.AddScoped<ID_Player, D_Player>();
 
             //Managing mappers
             services.AddAutoMapper(typeof(Startup));

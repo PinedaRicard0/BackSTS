@@ -17,15 +17,17 @@ namespace sts_services
         private readonly ID_Pool _DaoPool;
         private readonly ID_Team _DaoTeam;
         private readonly ID_Field _DaoField;
+        private readonly ID_Player _DaoPlayer;
 
         public TournamentConfService(IMapper mapper,ID_Category DaoCategory, ID_Pool DaoPool,
-                                    ID_Team DaoTeam, ID_Field DaoField)
+                                    ID_Team DaoTeam, ID_Field DaoField, ID_Player DaoPlayer)
         {
             _mapper = mapper;
             _DaoCategory = DaoCategory;
             _DaoPool = DaoPool;
             _DaoTeam = DaoTeam;
             _DaoField = DaoField;
+            _DaoPlayer = DaoPlayer;
         }
         public async Task<List<Category>> AllCategories()
         {
@@ -100,5 +102,25 @@ namespace sts_services
             return r;
 
         }
+
+        public async Task<string> AddPlayerToTeam(PlayerP player) {
+            var p = _mapper.Map<PlayerP, Player>(player);
+            string r = await _DaoPlayer.SavePlayer(p);
+            return r;
+        }
+        public async Task<List<PlayerP>> GetTeamPlayers(int teamId) {
+            var players = await _DaoPlayer.GetTeamPlayers(teamId);
+            var r = _mapper.Map<List<Player>, List<PlayerP>>(players);
+            return r;
+        }
+
+        public async Task<string> UpdatePlayer(PlayerP player) {
+            Player p = _mapper.Map<PlayerP, Player>(player);
+            var r = await _DaoPlayer.UpdatePlayer(p);
+            return r;
+        }
+
+
+
     }
 }
