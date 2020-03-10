@@ -26,9 +26,23 @@ namespace sts_daos
         }
 
         public async Task<string> SaveTeam(Team team) {
+            team.Pool = null;
             await _context.Teams.AddAsync(team);
             await _context.SaveChangesAsync();
             return "created";
+        }
+
+        public async Task<Team> GetTeam(int id) {
+            return await _context.Teams.Include(t=>t.Pool).Where(t => t.TeamId == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<string> UpdateTeam(Team team, int id) {
+            Team res = await _context.Teams.Where(t => t.TeamId == id).FirstOrDefaultAsync();
+            res.Name = team.Name;
+            res.City = team.City;
+            res.PoolId = team.PoolId;
+            await _context.SaveChangesAsync();
+            return "updated";
         }
     }
 }

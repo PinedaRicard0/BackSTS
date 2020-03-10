@@ -8,6 +8,10 @@ namespace sts_i_daos
     {
         Task<List<Team>> GetPoolsTeams(List<Pool> pools);
         Task<string> SaveTeam(Team team);
+        Task<Team> GetTeam(int id);
+        Task<string> UpdateTeam(Team team, int id);
+
+        
 
     }
 }

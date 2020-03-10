@@ -76,8 +76,29 @@ namespace sts_services
 
         public async Task<string> CreateTeams(TeamP team)
         {
-            var t = _mapper.Map<TeamP, Team>(team);
-            return await _DaoTeam.SaveTeam(t);
+            try
+            {
+
+                var t = _mapper.Map<TeamP, Team>(team);
+                return await _DaoTeam.SaveTeam(t);
+            }
+            catch (Exception e) {
+                return e.ToString();
+            }
+        }
+
+        public async Task<TeamP> GetTeamById(int id) {
+            var t = await _DaoTeam.GetTeam(id);
+            TeamP res = _mapper.Map<Team, TeamP>(t);
+            return res;
+        }
+
+        public async Task<string> UpdateTeam(TeamP team)
+        {
+            Team t = _mapper.Map<TeamP, Team>(team);
+            string r = await _DaoTeam.UpdateTeam(t, team.id);
+            return r;
+
         }
     }
 }

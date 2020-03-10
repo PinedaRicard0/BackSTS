@@ -11,6 +11,7 @@ namespace sts_models.POCOS
         public string category { get; set; }
 
         public string pool { get; set; }
+        public int poolId { get; set; }
 
 
     }

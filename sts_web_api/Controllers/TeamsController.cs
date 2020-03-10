@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using sts_i_services;
 using sts_models.POCOS;
@@ -16,10 +17,17 @@ namespace sts_web_api.Controllers
         }
 
         [HttpPost]
-        [Route("teams")]
+        [Route("create")]
         public async Task<ActionResult> CreateTeam(TeamP team) {
             var r = await _TournamentConfService.CreateTeams(team);
             return Json(r);
+        }
+
+        [HttpGet]
+        [Route("getteam/{id}")]
+        public async Task<IActionResult> GetTeamById(string id) {
+            var r = await _TournamentConfService.GetTeamById(Int32.Parse(id));
+            return Ok(r);
         }
 
         [HttpGet]
@@ -36,6 +44,14 @@ namespace sts_web_api.Controllers
         {
             var teams = await _TournamentConfService.GetCategoryTeams(id);
             return Ok(teams);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<ActionResult> UpdateTeam(TeamP team)
+        {
+            var r = await _TournamentConfService.UpdateTeam(team);
+            return Json(r);
         }
     }
 }
