@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sts_i_services;
 using sts_models.POCOS;
 
 namespace sts_web_api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PlayersController : Controller
@@ -20,6 +22,7 @@ namespace sts_web_api.Controllers
 
         // GET: api/Players
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
@@ -50,12 +53,6 @@ namespace sts_web_api.Controllers
         {
             var r = await _TournamentConfService.UpdatePlayer(player);
             return Json(r);
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

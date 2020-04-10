@@ -10,7 +10,7 @@ namespace sts_daos
         public DbSet<Pool> Pools { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Field> Fields { get; set; }
-
         public DbSet<Player> Players { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,10 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using sts_daos;
 using sts_i_daos;
 using sts_i_services;
 using sts_services;
+using System.Text;
 
 namespace sts_web_api
 {
@@ -27,13 +30,27 @@ namespace sts_web_api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
+            //Managing authentication middleware
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>{
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
             //Managing Dependency injection
-            services.AddScoped<ID_Category, D_Category>();
             services.AddScoped<ITournamentConfService, TournamentConfService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ID_Category, D_Category>();
             services.AddScoped<ID_Pool, D_Pool>();
             services.AddScoped<ID_Team, D_Team>();
             services.AddScoped<ID_Field, D_Field>();
             services.AddScoped<ID_Player, D_Player>();
+            services.AddScoped<ID_User, D_User>();
 
             //Managing mappers
             services.AddAutoMapper(typeof(Startup));
@@ -58,6 +75,8 @@ namespace sts_web_api
             app.UseRouting();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
