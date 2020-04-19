@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sts_i_services;
 using sts_models.POCOS;
@@ -7,6 +8,7 @@ using sts_models.POCOS;
 
 namespace sts_web_api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FieldsController : Controller
