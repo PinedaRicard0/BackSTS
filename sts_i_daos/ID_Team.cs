@@ -10,8 +10,6 @@ namespace sts_i_daos
         Task<string> SaveTeam(Team team);
         Task<Team> GetTeam(int id);
         Task<string> UpdateTeam(Team team, int id);
-
-        
-
+        Task<List<Team>> GetTeamsPool(int poolId);
     }
 }

@@ -120,7 +120,50 @@ namespace sts_services
             return r;
         }
 
+        public async Task<List<PoolStatistics>> GetPoolsAndStatisticOfCategory(int categoryId)
+        {
+            List<Pool> categoryPools = await _DaoPool.GetPoolsByCategory(categoryId);
+            List<PoolStatistics> response = new List<PoolStatistics>();
+            foreach (var p in categoryPools) {
+                PoolStatistics ps = new PoolStatistics();
+                List<PoolTeamStatisctics> poolsStatistics = new List<PoolTeamStatisctics>();
+                poolsStatistics = await _DaoPool.GetPoolTeamsAndStatistics(p.Id);
+                ps.poolId = p.Id;
+                ps.poolName = p.Name;
+                List<int> teamsWithStatistics = new List<int>();
+                if (poolsStatistics != null && poolsStatistics.Count > 0)
+                { 
+                    //ps.teamsStatistics = poolsStatistics;
+                    foreach (var x in poolsStatistics) {
+                        teamsWithStatistics.Add(x.teamId);
+                    }
+                }
+                ps.teamsStatistics = poolsStatistics;
 
-
+                //Filling the list with all the pool teams statisctis (Those teams that doesn´t have statistics already)
+                List<Team> poolTeams = await _DaoTeam.GetTeamsPool(p.Id);
+                if (poolTeams != null && poolTeams.Count > 0 && poolTeams.Count != teamsWithStatistics.Count) {
+                    foreach (var t in poolTeams) {
+                        if (!teamsWithStatistics.Contains(t.TeamId)) {
+                            var tmp = new PoolTeamStatisctics()
+                            {
+                                poolId = p.Id,
+                                teamId = t.TeamId,
+                                teamName = t.Name,
+                                played = 0,
+                                won = 0,
+                                lost = 0,
+                                scored = 0,
+                                against = 0,
+                                goalDifference = 0
+                            };
+                            poolsStatistics.Add(tmp);
+                        }
+                    }
+                }
+                response.Add(ps);
+            }
+            return response;
+        }
     }
 }

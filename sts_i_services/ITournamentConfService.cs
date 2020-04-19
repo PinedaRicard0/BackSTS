@@ -19,6 +19,7 @@ namespace sts_i_services
         Task<string> AddPlayerToTeam(PlayerP player);
         Task<List<PlayerP>> GetTeamPlayers(int teamId);
         Task<string> UpdatePlayer(PlayerP player);
+        Task<List<PoolStatistics>> GetPoolsAndStatisticOfCategory(int categoryId);
         
 
 

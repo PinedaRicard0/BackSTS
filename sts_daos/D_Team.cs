@@ -15,6 +15,7 @@ namespace sts_daos
         {
             _context = context;
         }
+
         public async Task<List<Team>> GetPoolsTeams(List<Pool> pools)
         {
             List<Team> responseList = new List<Team>();
@@ -43,6 +44,11 @@ namespace sts_daos
             res.PoolId = team.PoolId;
             await _context.SaveChangesAsync();
             return "updated";
+        }
+
+        public async Task<List<Team>> GetTeamsPool(int poolId) {
+            var response = await _context.Teams.Where(t => t.PoolId == poolId).OrderBy(t => t.Name).ToListAsync();
+            return response;
         }
     }
 }
