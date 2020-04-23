@@ -50,5 +50,22 @@ namespace sts_daos
             var response = await _context.Teams.Where(t => t.PoolId == poolId).OrderBy(t => t.Name).ToListAsync();
             return response;
         }
+
+        public async Task<object> GetPlayersTeamBreadScrumb(int teamId)
+        {
+            var entries = await (from t in _context.Teams
+                           join p in _context.Pools on t.PoolId equals p.Id
+                           join c in _context.Categories on p.CategoryId equals c.Id
+                           where t.TeamId == teamId
+                           select new
+                           {
+                               teamName = t.Name,
+                               teamId,
+                               categoryName = c.Name,
+                               categoryId = c.Id
+                           }).FirstOrDefaultAsync();
+            return entries;
+                           
+        }
     }
 }

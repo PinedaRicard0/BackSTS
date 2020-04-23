@@ -15,9 +15,12 @@ namespace sts_web_api.Controllers
     public class PlayersController : Controller
     {
         private readonly ITournamentConfService _TournamentConfService;
-        public PlayersController(ITournamentConfService tournamentConfService)
+        private readonly IShareService _ShareService;
+
+        public PlayersController(ITournamentConfService tournamentConfService, IShareService shareService)
         {
             _TournamentConfService = tournamentConfService;
+            _ShareService = shareService;
         }
 
         // GET: api/Players
@@ -53,6 +56,13 @@ namespace sts_web_api.Controllers
         {
             var r = await _TournamentConfService.UpdatePlayer(player);
             return Json(r);
+        }
+
+        [HttpGet]
+        [Route("breadcrumb")]
+        [AllowAnonymous]
+        public async Task<IActionResult> BreadCrumb(string id, string view) {
+           return Ok( await _ShareService.GetBreadCrumbData(id, view));
         }
     }
 }

@@ -26,8 +26,6 @@ namespace sts_daos
                            orderby p.Id, ts.Won descending, ts.Scored descending, ts.GoalDifference descending
                            select new PoolTeamStatisctics
                            { 
-                               poolId = p.Id,
-                               poolName = p.Name,
                                teamId = t.TeamId,
                                teamName = t.Name,
                                teamStatiscticsId = ts.Id,

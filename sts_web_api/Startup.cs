@@ -44,6 +44,7 @@ namespace sts_web_api
 
             //Managing Dependency injection
             services.AddScoped<ITournamentConfService, TournamentConfService>();
+            services.AddScoped<IShareService, ShareService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ID_Category, D_Category>();
             services.AddScoped<ID_Pool, D_Pool>();

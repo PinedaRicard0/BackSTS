@@ -147,7 +147,6 @@ namespace sts_services
                         if (!teamsWithStatistics.Contains(t.TeamId)) {
                             var tmp = new PoolTeamStatisctics()
                             {
-                                poolId = p.Id,
                                 teamId = t.TeamId,
                                 teamName = t.Name,
                                 played = 0,

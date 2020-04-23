@@ -6,8 +6,6 @@ namespace sts_models.POCOS
 {
     public class PoolTeamStatisctics
     {
-        public int poolId { get; set; }
-        public string poolName { get; set; }
         public int teamId { get; set; }
         public string teamName { get; set; }
         public int teamStatiscticsId { get; set; }

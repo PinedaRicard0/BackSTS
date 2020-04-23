@@ -11,5 +11,6 @@ namespace sts_i_daos
         Task<Team> GetTeam(int id);
         Task<string> UpdateTeam(Team team, int id);
         Task<List<Team>> GetTeamsPool(int poolId);
+        Task<object> GetPlayersTeamBreadScrumb(int teamId);
     }
 }
