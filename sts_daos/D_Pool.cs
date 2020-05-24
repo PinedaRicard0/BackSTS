@@ -2,6 +2,7 @@
 using sts_i_daos;
 using sts_models.DTO;
 using sts_models.POCOS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,6 +44,23 @@ namespace sts_daos
         {
             var response = await _context.Pools.Where(p => p.CategoryId == categoryId).OrderBy(p => p.Name).ToListAsync();
             return response;
+        }
+
+        public async Task<int> GetNumberOfTeams(int poolId)
+        {
+            var response = await _context.Teams.CountAsync(t => t.PoolId == poolId);
+            return response;
+        }
+
+        public async Task UpdatePool(Pool pool) {
+            try
+            {
+                _context.Entry(pool).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e) {
+                string ex = e.StackTrace;
+            }
         }
     }
 }

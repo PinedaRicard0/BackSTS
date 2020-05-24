@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sts_daos;
 
 namespace sts_daos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200502213724_MatchAddingColumnLength")]
+    partial class MatchAddingColumnLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,10 +36,6 @@ namespace sts_daos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
 
                     b.HasKey("Id");
 
@@ -76,13 +74,13 @@ namespace sts_daos.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FieldId")
+                    b.Property<int>("FieldId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("GameDate")
+                    b.Property<DateTime>("GameDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PoolId")
+                    b.Property<int>("PoolId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -154,10 +152,6 @@ namespace sts_daos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)")
                         .HasMaxLength(1);
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
 
                     b.HasKey("Id");
 
@@ -262,11 +256,15 @@ namespace sts_daos.Migrations
                 {
                     b.HasOne("sts_models.DTO.Field", "Field")
                         .WithMany()
-                        .HasForeignKey("FieldId");
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("sts_models.DTO.Pool", "Pool")
                         .WithMany()
-                        .HasForeignKey("PoolId");
+                        .HasForeignKey("PoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("sts_models.DTO.Team", "TeamOne")
                         .WithMany()

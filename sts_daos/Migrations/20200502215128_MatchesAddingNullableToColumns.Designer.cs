@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sts_daos;
 
 namespace sts_daos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200502215128_MatchesAddingNullableToColumns")]
+    partial class MatchesAddingNullableToColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,10 +36,6 @@ namespace sts_daos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
 
                     b.HasKey("Id");
 
@@ -79,7 +77,7 @@ namespace sts_daos.Migrations
                     b.Property<int?>("FieldId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("GameDate")
+                    b.Property<DateTime>("GameDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("PoolId")
@@ -154,10 +152,6 @@ namespace sts_daos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)")
                         .HasMaxLength(1);
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
 
                     b.HasKey("Id");
 

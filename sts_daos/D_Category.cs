@@ -21,5 +21,17 @@ namespace sts_daos
             var categories = await _context.Categories.ToListAsync();
             return categories;
         }
+
+        public async Task UpdateCategoryStatus(int categoryId, string status) {
+            try
+            {
+                string sql = "UPDATE Categories SET Status = {0} WHERE Id = {1}";
+                await _context.Database.ExecuteSqlRawAsync(sql,new object[] { status, categoryId });
+            }
+            catch (Exception e)
+            {
+                var ex = e.StackTrace;
+            }
+        }
     }
 }

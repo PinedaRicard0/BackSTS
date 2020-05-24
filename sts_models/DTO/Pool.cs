@@ -12,8 +12,13 @@ namespace sts_models.DTO
         [Required]
         [MaxLength(1)]
         public string Name { get; set; }
+
         [Required]
         public int CategoryId { get; set; }
+
+        [MaxLength(15)]
+        public string Status { get; set; }
+
         public virtual Category Category { get; set; }
     }
 }

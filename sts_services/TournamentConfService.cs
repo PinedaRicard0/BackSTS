@@ -5,7 +5,6 @@ using sts_models.DTO;
 using sts_models.POCOS;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace sts_services
@@ -18,9 +17,10 @@ namespace sts_services
         private readonly ID_Team _DaoTeam;
         private readonly ID_Field _DaoField;
         private readonly ID_Player _DaoPlayer;
+        private readonly ID_Match _DaoMatches;
 
         public TournamentConfService(IMapper mapper,ID_Category DaoCategory, ID_Pool DaoPool,
-                                    ID_Team DaoTeam, ID_Field DaoField, ID_Player DaoPlayer)
+                                    ID_Team DaoTeam, ID_Field DaoField, ID_Player DaoPlayer, ID_Match DaoMatches)
         {
             _mapper = mapper;
             _DaoCategory = DaoCategory;
@@ -28,6 +28,7 @@ namespace sts_services
             _DaoTeam = DaoTeam;
             _DaoField = DaoField;
             _DaoPlayer = DaoPlayer;
+            _DaoMatches = DaoMatches;
         }
         public async Task<List<Category>> AllCategories()
         {
@@ -163,6 +164,62 @@ namespace sts_services
                 response.Add(ps);
             }
             return response;
+        }
+
+        public async Task<bool> CanStartCategorie(int categoryId)
+        {
+            List<Pool> pools = await _DaoPool.GetPoolsByCategory(categoryId);
+            if (pools != null && pools.Count > 0) {
+                foreach (var p in pools) {
+                    int q = await _DaoPool.GetNumberOfTeams(p.Id);
+                    if (q < 2) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<string> StartCategory(int categoryId)
+        {
+            if (await CanStartCategorie(categoryId)) {
+                List<Pool> pools = await _DaoPool.GetPoolsByCategory(categoryId);
+                foreach (var p in pools)
+                {
+                    await CreatePoolGames(p.Id);
+                    p.Status = "started";
+                    await _DaoPool.UpdatePool(p);
+                }
+                await _DaoCategory.UpdateCategoryStatus(categoryId, "started");
+                return "Started";
+            }
+            return "Failed";
+        }
+
+        private async Task  CreatePoolGames(int poolId) {
+            List<Team> poolTeams =  await _DaoTeam.GetTeamsPool(poolId);
+            var counter = 1;
+            for (int i = 0; i < poolTeams.Count; i++) {
+                if (counter != i) { 
+                    for (var y = counter; y < poolTeams.Count; y++) {
+                        var match = new Match()
+                        {
+                            TeamOneId = poolTeams[i].TeamId,
+                            TeamTwoId = poolTeams[y].TeamId,
+                            TeamOneGoals = 0,
+                            TeamTwoGoals = 0,
+                            PoolId = poolId,
+                            Status = "Programmed",
+                            FieldId = null
+                        };
+                        await _DaoMatches.CreateMatch(match);
+                    }
+                    if (counter != poolTeams.Count - 1) {
+                        counter++;
+                    }
+                }
+            }
         }
     }
 }

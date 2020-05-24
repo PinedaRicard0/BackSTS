@@ -16,5 +16,8 @@ namespace sts_models.DTO
 
         [MaxLength(100)]
         public string Description { get; set; }
+
+        [MaxLength(15)]
+        public string Status { get; set; }
     }
 }

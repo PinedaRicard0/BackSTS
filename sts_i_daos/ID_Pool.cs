@@ -11,5 +11,7 @@ namespace sts_i_daos
     {
         Task<List<Pool>> GetPoolsByCategory(int categoryId);
         Task<List<PoolTeamStatisctics>> GetPoolTeamsAndStatistics(int poolId);
+        Task<int> GetNumberOfTeams(int poolId);
+        Task UpdatePool(Pool pool);
     }
 }

@@ -52,6 +52,7 @@ namespace sts_web_api
             services.AddScoped<ID_Field, D_Field>();
             services.AddScoped<ID_Player, D_Player>();
             services.AddScoped<ID_User, D_User>();
+            services.AddScoped<ID_Match, D_Match>();
 
             //Managing mappers
             services.AddAutoMapper(typeof(Startup));

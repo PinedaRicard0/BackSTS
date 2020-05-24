@@ -13,5 +13,6 @@ namespace sts_daos
         public DbSet<Player> Players { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<TeamStatistics> TeamsStatistics { get; set; }
+        public DbSet<Match> Matches { get; set; }
     }
 }
