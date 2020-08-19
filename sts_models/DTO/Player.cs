@@ -19,6 +19,8 @@ namespace sts_models.DTO
         [MaxLength(60)]
         public string NickName { get; set; }
 
+        public int? Dorsal { get; set; }
+
         [Required]
         public int TeamId { get; set; }
 

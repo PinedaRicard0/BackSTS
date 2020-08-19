@@ -41,6 +41,7 @@ namespace sts_daos
             {
                 toUpdatePlayer.Name = player.Name;
                 toUpdatePlayer.NickName = player.NickName;
+                toUpdatePlayer.Dorsal = player.Dorsal;
                 await _context.SaveChangesAsync();
                 return "updated";
             }
