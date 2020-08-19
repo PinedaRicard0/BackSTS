@@ -10,22 +10,29 @@ namespace sts_web_api.Others
         public AutoMapping()
         {
             CreateMap<Team, TeamP>().
-                ForMember(dest => dest.id, opt => opt.MapFrom(dest => dest.TeamId)).
-                ForMember(dest => dest.name, opt => opt.MapFrom(dest => dest.Name)).
-                ForMember(dest => dest.category, opt => opt.MapFrom(dest => dest.Pool.CategoryId.ToString())).
-                ForMember(dest => dest.pool, opt => opt.MapFrom(dest => dest.Pool.Name)).
-                ForMember(dest => dest.poolId, opt => opt.MapFrom(dest => dest.Pool.Id));
+                ForMember(dest => dest.id, opt => opt.MapFrom(sour => sour.TeamId)).
+                ForMember(dest => dest.name, opt => opt.MapFrom(sour => sour.Name)).
+                ForMember(dest => dest.category, opt => opt.MapFrom(sour => sour.Pool.CategoryId.ToString())).
+                ForMember(dest => dest.pool, opt => opt.MapFrom(sour => sour.Pool.Name)).
+                ForMember(dest => dest.poolId, opt => opt.MapFrom(sour => sour.Pool.Id));
 
             CreateMap<TeamP, Team>().
-                ForMember(dest => dest.Name, opt => opt.MapFrom(dest => dest.name)).
-                ForMember(dest => dest.PoolId, opt => opt.MapFrom(dest => Convert.ToInt32(dest.poolId))).
-                ForMember(dest => dest.City, opt => opt.MapFrom(dest => "Medellín")).
-                ForMember(dest => dest.Pool, opt => opt.MapFrom(dest => new Pool()));
+                ForMember(dest => dest.Name, opt => opt.MapFrom(sour => sour.name)).
+                ForMember(dest => dest.PoolId, opt => opt.MapFrom(sour => Convert.ToInt32(sour.poolId))).
+                ForMember(dest => dest.City, opt => opt.MapFrom(sour => "Medellín")).
+                ForMember(dest => dest.Pool, opt => opt.MapFrom(sour => new Pool()));
 
             CreateMap<FieldP, Field>();
             CreateMap<Pool, PoolP>();
             CreateMap<PlayerP, Player>();
             CreateMap<Player, PlayerP>();
+
+            CreateMap<Match, MatchP>().
+                ForMember(dest => dest.TeamOneName, opt => opt.MapFrom(sour => sour.TeamOne.Name)).
+                ForMember(dest => dest.TeamTwoName, opt => opt.MapFrom(sour => sour.TeamTwo.Name)).
+                ForMember(dest => dest.FieldName, opt => opt.MapFrom(sour => sour.Field.Name)).
+                ForMember(dest => dest.PoolName, opt => opt.MapFrom(sour => sour.Pool.Name));
+            CreateMap<MatchP, Match>();
         }
     }
 }

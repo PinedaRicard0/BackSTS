@@ -21,13 +21,14 @@
       }
     },
     "sts_web_api": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
-      "launchUrl": "categories",
+      "launchUrl": "api/players",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5000"
+      "nativeDebugging": true,
+      "applicationUrl": "http://localhost:80"
     }
   }
 }

@@ -22,6 +22,7 @@ namespace sts_i_services
         Task<List<PoolStatistics>> GetPoolsAndStatisticOfCategory(int categoryId);
         Task<bool> CanStartCategorie(int categoryId);
         Task<string> StartCategory(int categoryId);
+        Task<List<MatchP>> GetCategoryMatches(int categoryId);
 
     }
 }

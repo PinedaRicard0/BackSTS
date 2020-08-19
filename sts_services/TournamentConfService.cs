@@ -221,5 +221,16 @@ namespace sts_services
                 }
             }
         }
+
+        public async Task<List<MatchP>> GetCategoryMatches(int categoryId)
+        {
+            List<Pool> pools = await _DaoPool.GetPoolsByCategory(categoryId);
+            List<Match> matches = new List<Match>();
+            foreach (var pool in pools) {
+                matches.AddRange(await _DaoMatches.GetPoolMatches(pool.Id));
+            }
+            var r = _mapper.Map<List<Match>, List<MatchP>>(matches);
+            return r;
+        }
     }
 }

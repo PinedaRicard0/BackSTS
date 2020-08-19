@@ -9,5 +9,6 @@ namespace sts_i_daos
     public interface ID_Match
     {
         Task CreateMatch(Match match);
+        Task<List<Match>> GetPoolMatches(int poolId);
     }
 }
