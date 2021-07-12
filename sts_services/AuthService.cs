@@ -5,6 +5,7 @@ using sts_i_services;
 using sts_models.DTO;
 using sts_models.POCOS;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,11 +17,13 @@ namespace sts_services
     {
         private readonly ID_User _DaoUser;
         private readonly IConfiguration _config;
+        private readonly IUserMG _DaoMongoUser;
 
-        public AuthService(ID_User DaoUser, IConfiguration config)
+        public AuthService(ID_User DaoUser, IConfiguration config, IUserMG userMG)
         {
             _DaoUser = DaoUser;
             _config = config;
+            _DaoMongoUser = userMG;
         }
         public async Task<bool> IsUserRegistered(string mail)
         {
@@ -104,6 +107,12 @@ namespace sts_services
                 }
                 return true;
             }
+        }
+
+        public Task<List<UserMG>> GetAllMongoUsers()
+        {
+            var x = _DaoMongoUser.GetAllMongoUser();
+            return x;
         }
     }
 }

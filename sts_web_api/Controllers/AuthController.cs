@@ -49,5 +49,11 @@ namespace sts_web_api.Controllers
                 expiresIn = 60
             });
         }
+
+        [HttpGet]
+        [Route("mongoUsers")]
+        public async Task<IActionResult> MongoUsers() {
+            return Ok(await _Auth.GetAllMongoUsers());
+        }
     }
 }

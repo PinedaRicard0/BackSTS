@@ -54,12 +54,20 @@ namespace sts_web_api
             services.AddScoped<ID_User, D_User>();
             services.AddScoped<ID_Match, D_Match>();
 
+            services.AddScoped<IUserMG, UserMG>();
+
             //Managing mappers
             services.AddAutoMapper(typeof(Startup));
-
+            //adding SQL data context
             services.AddDbContext<DataContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("STSConnection"))
                 );
+            //adding MongoDb data Context
+            services.Configure<MongoGeneralContext>(opt => {
+                opt.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                opt.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
+
             services.AddControllers();
             services.AddCors();
         }
